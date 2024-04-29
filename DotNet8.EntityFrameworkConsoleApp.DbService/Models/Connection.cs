@@ -12,7 +12,6 @@ public class Connection : DbContext
         {
             var sqlConnectionStringBuilder = new SqlConnectionStringBuilder
             {
-
                 DataSource = ".",
                 InitialCatalog = "TestDb",
                 UserID = "sa",
