@@ -1,12 +1,14 @@
-﻿namespace DotNet8.EntityFrameworkConsoleApp;
+﻿using DotNet8.EntityFrameworkConsoleApp.ConnectionService;
+
+namespace DotNet8.EntityFrameworkConsoleApp;
 
 public class EFCoreService
 {
-    private readonly AppDBContext _context;
+    private readonly Connection _context;
 
-    public EFCoreService(AppDBContext context)
+    public EFCoreService(Connection context)
     {
-        _context = new AppDBContext();
+        _context = new Connection();
     }
 
     public void Run()
