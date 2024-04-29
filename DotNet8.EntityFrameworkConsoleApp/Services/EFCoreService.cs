@@ -25,32 +25,24 @@ public class EFCoreService
             item.ToConsole();
         }
     }
-    
-    private void Edit(int id)
+
+    private void Edit()
     {
-        BlogDataModel? item = _context.Blogs.AsNoTracking().FirstOrDefault(x => x.BlogId == id);
+        Console.Write("Enter blog Id: ");
+        int id = Console.ReadLine().ToInt();
+        var item = _context.Blogs.AsNoTracking().FirstOrDefault(x => x.BlogId == id);
         if (item is null)
         {
             string message = "No data found";
             message.ToConsoleMessage();
             return;
         }
+
         item.ToConsole();
     }
 
     #region user input
-    //private static string? UserInput(out string? author, out string? content)
-    //{
-    //    Console.Write("Enter blog title: ");
-    //    string title = Console.ReadLine();
 
-    //    Console.Write("Enter blog author: ");
-    //    author = Console.ReadLine();
-
-    //    Console.Write("Enter blog content: ");
-    //    content = Console.ReadLine();
-    //    return title;
-    //}
     private (string, string, string) UserInput()
     {
         Console.Write("Enter blog title: ");
@@ -61,7 +53,9 @@ public class EFCoreService
         string content = Console.ReadLine();
         return (title, author, content);
     }
+
     #endregion
+
     private void Create()
     {
         var (title, author, content) = UserInput();
@@ -80,12 +74,13 @@ public class EFCoreService
     private void Update()
     {
         Console.Write("Enter blog Id: ");
-        int id = Convert.ToInt32(Console.ReadLine());
+        int id = Console.ReadLine().ToInt();
 
         var item = _context.Blogs.FirstOrDefault(x => x.BlogId == id);
-        if (item == null)
+        if (item is null)
         {
-            Console.WriteLine("No data found");
+            string message1 = "No data found";
+            message1.ToConsoleMessage();
             return;
         }
 
