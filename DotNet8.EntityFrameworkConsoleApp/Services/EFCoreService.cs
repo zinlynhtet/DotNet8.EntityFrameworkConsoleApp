@@ -20,7 +20,7 @@ public class EFCoreService
 
     private void Read()
     {
-        List<BlogDataModel> lst = _context.Blogs.ToList();
+        List<BlogDataModel> lst = _context.Blogs.AsNoTracking().ToList();
         foreach (BlogDataModel item in lst)
         {
             item.ToConsole();
@@ -28,10 +28,11 @@ public class EFCoreService
     }
     private void Edit(int id)
     {
-        BlogDataModel? item = _context.Blogs.FirstOrDefault(x => x.BlogId == id);
+        BlogDataModel? item = _context.Blogs.AsNoTracking().FirstOrDefault(x => x.BlogId == id);
         if (item is null)
         {
-            Console.WriteLine("No data found.");
+            string message = "No data found";
+            message.ToConsoleMessage();
             return;
         }
         item.ToConsole();
@@ -64,6 +65,22 @@ public class EFCoreService
         _context.Blogs.Add(model);
         int result = _context.SaveChanges();
         string message = result > 0 ? "Saving Successful." : "Saving Failed.";
+        message.ToConsoleMessage();
+    }
+    private void Delete(int id)
+    {
+        var item = _context.Blogs.AsNoTracking().FirstOrDefault(x => x.BlogId == id);
+        if (item is null)
+        {
+            string message1 = "No data found";
+            message1.ToConsoleMessage();
+            return;
+        }
+
+        _context.Blogs.Remove(item);
+        _context.Entry(item).State = EntityState.Deleted;
+        int result = _context.SaveChanges();
+        string message = result > 0 ? "Deleting Successful." : "Deleting Failed.";
         message.ToConsoleMessage();
     }
 }
