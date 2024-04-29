@@ -1,15 +1,12 @@
-﻿using DotNet8.EntityFrameworkConsoleApp.DbService.Models;
-using System;
-
-namespace DotNet8.EntityFrameworkConsoleApp;
+﻿namespace DotNet8.EntityFrameworkConsoleApp;
 
 public class EFCoreService
 {
-    private readonly Connection _connection;
+    private readonly AppDBContext _context;
 
-    public EFCoreService(Connection connection)
+    public EFCoreService(AppDBContext context)
     {
-        _connection = new Connection();
+        _context = new AppDBContext();
     }
 
     public void Run()
@@ -19,8 +16,8 @@ public class EFCoreService
 
     private void Read()
     {
-        var lst = _connection.TblBlogs.ToList();
-        foreach (TblBlog item in lst)
+        List<BlogDataModel> lst = _context.Blogs.ToList();
+        foreach (BlogDataModel item in lst)
         {
             item.ToConsole();
         }
