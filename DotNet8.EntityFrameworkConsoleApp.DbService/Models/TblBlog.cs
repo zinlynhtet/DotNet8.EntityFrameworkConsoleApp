@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace DotNet8.EntityFrameworkConsoleApp.DbService.Models;
+﻿namespace DotNet8.EntityFrameworkConsoleApp.DbService.Models;
 
 public partial class TblBlog
 {
@@ -13,3 +10,4 @@ public partial class TblBlog
 
     public string? BlogContent { get; set; }
 }
+
