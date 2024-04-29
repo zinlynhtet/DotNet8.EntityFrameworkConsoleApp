@@ -10,7 +10,6 @@ namespace DotNet8.EntityFrameworkConsoleApp.Models
             {
                 var sqlConnectionStringBuilder = new SqlConnectionStringBuilder
                 {
-
                     DataSource = ".", // sever name
                     InitialCatalog = "TestDb", //database name
                     UserID = "sa",
