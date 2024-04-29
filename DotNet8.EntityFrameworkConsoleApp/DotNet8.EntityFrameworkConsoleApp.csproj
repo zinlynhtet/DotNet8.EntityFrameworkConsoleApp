@@ -17,8 +17,4 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\DotNet8.EntityFrameworkConsoleApp.DbService\DotNet8.EntityFrameworkConsoleApp.DbService.csproj" />
-  </ItemGroup>
-
 </Project>
