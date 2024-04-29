@@ -1,7 +1,4 @@
-﻿using DotNet8.EntityFrameworkConsoleApp.Models;
-using Microsoft.EntityFrameworkCore;
-
-namespace DotNet8.EntityFrameworkConsoleApp.Services;
+﻿namespace DotNet8.EntityFrameworkConsoleApp.Services;
 
 public class EFCoreService
 {
@@ -16,6 +13,8 @@ public class EFCoreService
     {
         Read();
         //Create();
+        //Delete();
+        //Update();
     }
 
     private void Read()
@@ -26,6 +25,7 @@ public class EFCoreService
             item.ToConsole();
         }
     }
+    
     private void Edit(int id)
     {
         BlogDataModel? item = _context.Blogs.AsNoTracking().FirstOrDefault(x => x.BlogId == id);
@@ -39,23 +39,32 @@ public class EFCoreService
     }
 
     #region user input
-    private static string? UserInput(out string? author, out string? content)
+    //private static string? UserInput(out string? author, out string? content)
+    //{
+    //    Console.Write("Enter blog title: ");
+    //    string title = Console.ReadLine();
+
+    //    Console.Write("Enter blog author: ");
+    //    author = Console.ReadLine();
+
+    //    Console.Write("Enter blog content: ");
+    //    content = Console.ReadLine();
+    //    return title;
+    //}
+    private (string, string, string) UserInput()
     {
         Console.Write("Enter blog title: ");
         string title = Console.ReadLine();
-
         Console.Write("Enter blog author: ");
-        author = Console.ReadLine();
-
+        string author = Console.ReadLine();
         Console.Write("Enter blog content: ");
-        content = Console.ReadLine();
-        return title;
+        string content = Console.ReadLine();
+        return (title, author, content);
     }
-
     #endregion
     private void Create()
     {
-        var title = UserInput(out var author, out var content);
+        var (title, author, content) = UserInput();
         BlogDataModel model = new BlogDataModel
         {
             BlogTitle = title,
@@ -67,8 +76,33 @@ public class EFCoreService
         string message = result > 0 ? "Saving Successful." : "Saving Failed.";
         message.ToConsoleMessage();
     }
-    private void Delete(int id)
+
+    private void Update()
     {
+        Console.Write("Enter blog Id: ");
+        int id = Convert.ToInt32(Console.ReadLine());
+
+        var item = _context.Blogs.FirstOrDefault(x => x.BlogId == id);
+        if (item == null)
+        {
+            Console.WriteLine("No data found");
+            return;
+        }
+
+        var (title, author, content) = UserInput();
+        item.BlogTitle = title;
+        item.BlogAuthor = author;
+        item.BlogContent = content;
+
+        int result = _context.SaveChanges();
+        string message = result > 0 ? "Updating Successful." : "Updating Failed.";
+        Console.WriteLine(message);
+    }
+
+    private void Delete()
+    {
+        Console.Write("Enter blog Id: ");
+        int id = Console.ReadLine().ToInt();
         var item = _context.Blogs.AsNoTracking().FirstOrDefault(x => x.BlogId == id);
         if (item is null)
         {
