@@ -1,7 +1,12 @@
-﻿namespace DotNet8.EntityFrameworkConsoleApp.DbService.Models;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+namespace DotNet8.EntityFrameworkConsoleApp.DbService.Models;
 
-public partial class TblBlog
+[Table("TblBlog")]
+public  class TblBlog
 {
+    [Key]
+    [Column("BlogId")]
     public int BlogId { get; set; }
 
     public string? BlogTitle { get; set; }
