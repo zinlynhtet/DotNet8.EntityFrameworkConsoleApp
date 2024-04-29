@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 
 var services = new ServiceCollection()
     .AddScoped<Connection>()
-    .AddDbContext<AppDbContext>()
     .AddScoped<EFCoreService>()
     .BuildServiceProvider();
 EFCoreService efCoreService = services.GetRequiredService<EFCoreService>();
