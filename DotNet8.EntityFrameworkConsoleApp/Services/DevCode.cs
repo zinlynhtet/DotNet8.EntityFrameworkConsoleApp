@@ -18,4 +18,11 @@ public static class DevCode
         }
 
     }
+    public static void ToConsoleMessage(this object item)
+    {
+        dynamic dynamicItem = item;
+
+        Console.WriteLine(dynamicItem);
+    }
+
 }
